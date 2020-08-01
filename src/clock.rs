@@ -1,7 +1,5 @@
 use super::RegIO;
 
-const CLOCK_BASE:u32 = 0x60006000;
-
 pub const RST_DEVICES_L: u32 = 0x4;
 pub const RST_DEVICES_H: u32 = 0x8;
 pub const RST_DEVICES_U: u32 = 0xC;
@@ -181,5 +179,5 @@ pub struct Clock {
 }
 
 impl RegIO for Clock {
-    const REG_BASE: u32 = CLOCK_BASE;
+    const REG_BASE: u32 = super::CLOCK_BASE;
 }

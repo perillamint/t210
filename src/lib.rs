@@ -1,20 +1,5 @@
 #![no_std]
 
-pub mod clock;
-
-pub trait RegIO {
-    const REG_BASE: u32;
-    #[inline(always)]
-    unsafe fn write(&self, reg: u32, data: u32) {
-        ((reg + Self::REG_BASE) as *mut u32).write_volatile(data);
-    }
-
-    #[inline(always)]
-    unsafe fn read(&self, reg: u32) -> u32 {
-        return ((reg + Self::REG_BASE) as *mut u32).read_volatile();
-    }
-}
-
 pub const HOST1X_BASE:u32 = 0x50000000;
 pub const DISPLAY_A_BASE:u32 = 0x54200000;
 pub const DSI_BASE:u32 = 0x54300000;
@@ -49,6 +34,22 @@ pub const MC_BASE:u32 = 0x70019000;
 pub const EMC_BASE:u32 = 0x7001B000;
 pub const MIPI_CAL_BASE:u32 = 0x700E3000;
 pub const I2S_BASE:u32 = 0x702D1000;
+
+pub mod clock;
+pub mod pmc;
+
+pub trait RegIO {
+    const REG_BASE: u32;
+    #[inline(always)]
+    unsafe fn write(&self, reg: u32, data: u32) {
+        ((reg + Self::REG_BASE) as *mut u32).write_volatile(data);
+    }
+
+    #[inline(always)]
+    unsafe fn read(&self, reg: u32) -> u32 {
+        return ((reg + Self::REG_BASE) as *mut u32).read_volatile();
+    }
+}
 
 pub static CLOCK: clock::Clock = clock::Clock {
 };
